@@ -1,0 +1,18 @@
+.items-grid {
+    display: grid;
+    gap: 1rem;
+    width: 80%;
+    margin-top: .75rem;
+}
+
+.items-grid > .item {
+    padding: 8px;
+    background-color: var(--color-dark-blue);
+    border-radius: 8px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-main-text);
+    text-decoration: none;
+}
