@@ -1,0 +1,37 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 80%;
+}
+
+.inputContainer > * {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.inputContainer > input {
+    background-color: var(--color-dark-blue);
+    color: var(--color-main-text);
+    padding: 4px 8px;
+    border-radius: 4px;
+    height: 2.5rem;
+    font-size: 1rem;
+}
+
+.inputContainer > button {
+    background-color: var(--color-green);
+    border: 1px solid var(--color-green);
+    padding: 8px;
+    border-radius: 4px;
+    color: var(--color-dark-blue);
+    cursor: pointer;
+    transition: all .15s;
+}
+
+.inputContainer > button:hover,
+.inputContainer > button:focus {
+    background-color: transparent;
+    color: var(--color-green);
+}
