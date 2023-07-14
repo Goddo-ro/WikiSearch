@@ -1,16 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import "./SearchContainer.css";
 import InputContainer from "../InputContainer/InputContainer";
 import ItemsGrid from "../ItemsGrid/ItemsGrid";
 import {useFetching} from "../../hooks/useFetching";
 import $api from "../../api/api";
-import axios from "axios";
 import Loader from "../Loader/Loader";
+import {observer} from "mobx-react-lite";
+import WikiStore from "../../store/WikiStore";
 
-const SearchContainer = () => {
+const SearchContainer = observer(() => {
     const [inputText, setInputText] = useState("");
-    const [items, setItems] = useState([]);
-    const [links, setLinks] = useState([]);
 
     const [fetchItems, isLoading] = useFetching(async () => {
         const res = await $api.get("",
@@ -22,8 +21,8 @@ const SearchContainer = () => {
                 }
             });
         const data = res.data;
-        setItems(data[1]);
-        setLinks(data[3]);
+        WikiStore.setItems(data[1]);
+        WikiStore.setLinks(data[3]);
     })
 
     const handleSubmit = (e) => {
@@ -41,10 +40,10 @@ const SearchContainer = () => {
             {
                 isLoading
                 ? <Loader/>
-                : <ItemsGrid items={items} links={links} />
+                : <ItemsGrid/>
             }
         </div>
     );
-};
+});
 
 export default SearchContainer;
