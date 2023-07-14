@@ -4,6 +4,7 @@ import InputContainer from "../InputContainer/InputContainer";
 import ItemsGrid from "../ItemsGrid/ItemsGrid";
 import {useFetching} from "../../hooks/useFetching";
 import $api from "../../api/api";
+import axios from "axios";
 
 const SearchContainer = () => {
     const [inputText, setInputText] = useState("");
@@ -11,17 +12,24 @@ const SearchContainer = () => {
     const [links, setLinks] = useState(["dsafsd", "SKfjks", "fsaf", "1sdfasd"]);
 
     const [fetchItems, isLoading] = useFetching(async () => {
-        const response = await $api.get("?action=opensearch&format=json&search=" + inputText);
-        setItems(response[1]);
-        setLinks(response[3]);
+        const res = await $api.get("",
+            {
+                params: {
+                    origin: "*",
+                    action: "opensearch",
+                    search: inputText,
+                }
+            });
+        const data = res.data;
+        setItems(data[1]);
+        setLinks(data[3]);
     })
-
-    useEffect(() => {
-        fetchItems();
-    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (inputText) {
+            fetchItems();
+        }
     }
 
     return (
