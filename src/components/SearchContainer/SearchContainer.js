@@ -5,11 +5,12 @@ import ItemsGrid from "../ItemsGrid/ItemsGrid";
 import {useFetching} from "../../hooks/useFetching";
 import $api from "../../api/api";
 import axios from "axios";
+import Loader from "../Loader/Loader";
 
 const SearchContainer = () => {
     const [inputText, setInputText] = useState("");
-    const [items, setItems] = useState(["Goggle", "Mail", "Ruru", "ASDsaf"]);
-    const [links, setLinks] = useState(["dsafsd", "SKfjks", "fsaf", "1sdfasd"]);
+    const [items, setItems] = useState([]);
+    const [links, setLinks] = useState([]);
 
     const [fetchItems, isLoading] = useFetching(async () => {
         const res = await $api.get("",
@@ -37,7 +38,11 @@ const SearchContainer = () => {
             <h1>WikiSearch</h1>
             <p>Search</p>
             <InputContainer handleSubmit={handleSubmit} inputText={inputText} setInputText={setInputText}/>
-            <ItemsGrid items={items} links={links} />
+            {
+                isLoading
+                ? <Loader/>
+                : <ItemsGrid items={items} links={links} />
+            }
         </div>
     );
 };
